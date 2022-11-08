@@ -33,4 +33,15 @@ app.post('/products', (req, res) => {
     })
 });
 
+app.put('/customers/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { username, email } = req.body;
+    await Customer.update({ username, email })
+    res.status(200).json({ message: 'data has been updated' })
+  } catch (error) {
+    res.status(500).json({ message: 'internal server error'});
+  }
+})
+
 app.listen(port);
