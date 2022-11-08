@@ -33,6 +33,7 @@ app.post('/products', (req, res) => {
     })
 });
 
+
 app.put('/customers/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -42,6 +43,18 @@ app.put('/customers/:id', async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: 'internal server error'});
   }
-})
+});
+
+app.delete('/products/:id', (req, res) => {
+  const { id } =  req.params;
+  Product
+    .destroy({ where: { id }})
+    .then(result => {
+      res.status(200).json({ message: 'product has been deleted' });
+    })
+    .catch(err => {
+      res.status(500).json({ message: 'internal server error'});
+    })
+});
 
 app.listen(port);
