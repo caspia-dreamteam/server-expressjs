@@ -8,4 +8,16 @@ app.post('/login', (req, res) => {
   res.status(200).json({access_token});
 });
 
+app.post('/products', (req, res) => {
+  const { name, price, desc } = req.body;
+  Product
+    .create({ name, price, desc })
+    .then(result => {
+      res.status(200).json(result);
+    })
+    .catch(err => {
+      res.status(500).json({ message: 'internal server error'});
+    })
+});
+
 app.listen(port);
