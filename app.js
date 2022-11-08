@@ -33,4 +33,16 @@ app.post('/products', (req, res) => {
     })
 });
 
+app.delete('/products/:id', (req, res) => {
+  const { id } =  req.params;
+  Product
+    .destroy({ where: { id }})
+    .then(result => {
+      res.status(200).json({ message: 'product has been deleted' });
+    })
+    .catch(err => {
+      res.status(500).json({ message: 'internal server error'});
+    })
+});
+
 app.listen(port);
